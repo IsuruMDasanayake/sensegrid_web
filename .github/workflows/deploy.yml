@@ -22,8 +22,7 @@ jobs:
       - name: Deploy and ensure SSL
         run: |
           ssh -o StrictHostKeyChecking=no root@152.42.249.28 "
-            cd /opt/sensegrid &&
-            git pull &&
-            docker-compose down &&
-            docker-compose up -d --build
-          "
+          cd /opt/sensegrid &&
+          git pull &&
+          ./init.sh
+        "
