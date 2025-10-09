@@ -15,23 +15,11 @@ services:
       - ./dist:/usr/share/nginx/html
     depends_on:
       - web
-      - certbot
-    command: >
-      /bin/sh -c "
-      if [ ! -f /etc/letsencrypt/live/sensegrid.sltdigitallab.lk/fullchain.pem ]; then
-          echo '⚠️  No SSL certificate found. Waiting for Certbot to issue one...';
-          sleep 10;
-      fi;
-      nginx -g 'daemon off;'
-      "
 
   web:
     build: .
     container_name: sensegrid_web
     restart: always
-    volumes:
-      - /etc/letsencrypt:/etc/letsencrypt:ro
-
 
   certbot:
     image: certbot/certbot
@@ -41,19 +29,13 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
     entrypoint: >
       /bin/sh -c "
-      DOMAIN=sensegrid.sltdigitallab.lk;
-      EMAIL=isurumadhuranga279@gmail.com;
-      CERT_PATH=/etc/letsencrypt/live/$DOMAIN/fullchain.pem;
-
-      if [ ! -f $CERT_PATH ]; then
-          echo '🔐 No certificate found — issuing first certificate using standalone mode...';
-          certbot certonly --standalone -d $DOMAIN --agree-tos --non-interactive --email $EMAIL;
+      if [ ! -f /etc/letsencrypt/live/sensegrid.sltdigitallab.lk/fullchain.pem ]; then
+          echo 'No certificate found. Requesting first certificate...';
+          certbot certonly --webroot -w /var/www/certbot -d sensegrid.sltdigitallab.lk --agree-tos --non-interactive --email isurumadhuranga279@gmail.com;
       fi;
-
-      echo '🔁 Starting auto-renewal loop...';
+      echo 'Starting renewal loop...';
       trap exit TERM;
       while :; do
           sleep 12h & wait $${!};
-          certbot renew --quiet --deploy-hook 'docker exec sensegrid_nginx nginx -s reload';
-      done
-      "
+          certbot renew --webroot -w /var/www/certbot --quiet --deploy-hook 'docker-compose exec nginx nginx -s reload';
+      done"
