@@ -1,10 +1,21 @@
 version: "3.9"
 
 services:
+  # -------------------- FRONTEND (build stage) --------------------
+  web:
+    build: .
+    container_name: sensegrid_web
+    restart: always
+    networks:
+      - sensegrid_net
+
+  # -------------------- NGINX PROXY --------------------
   nginx:
     image: nginx:alpine
     container_name: sensegrid_nginx
     restart: always
+    depends_on:
+      - web
     ports:
       - "80:80"
       - "443:443"
@@ -13,31 +24,37 @@ services:
       - ./certbot-webroot:/var/www/certbot
       - /etc/letsencrypt:/etc/letsencrypt
       - ./dist:/usr/share/nginx/html
-    depends_on:
-      - web
+    networks:
+      - sensegrid_net
 
-  web:
-    build: .
-    container_name: sensegrid_web
-    restart: always
-    # volumes:
-    #   - ./dist:/usr/share/nginx/html
-
+  # -------------------- CERTBOT (auto-renew) --------------------
   certbot:
     image: certbot/certbot
     container_name: sensegrid_certbot
+    restart: always
     volumes:
       - ./certbot-webroot:/var/www/certbot
       - /etc/letsencrypt:/etc/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock
     entrypoint: >
       /bin/sh -c "
       if [ ! -f /etc/letsencrypt/live/sensegrid.sltdigitallab.lk/fullchain.pem ]; then
-          echo 'No certificate found. Requesting first certificate...';
-          certbot certonly --webroot -w /var/www/certbot -d sensegrid.sltdigitallab.lk --agree-tos --non-interactive --email isurumadhuranga279@gmail.com;
+          echo '🔐 No SSL certificate found — requesting first certificate...';
+          certbot certonly --webroot -w /var/www/certbot \
+              -d sensegrid.sltdigitallab.lk \
+              --agree-tos --non-interactive \
+              --email isurumadhuranga279@gmail.com || exit 1;
       fi;
-      echo 'Starting renewal loop...';
+
+      echo '✅ SSL certificate found or created. Starting auto-renewal loop...';
       trap exit TERM;
       while :; do
           sleep 12h & wait $${!};
-          certbot renew --webroot -w /var/www/certbot --quiet --deploy-hook 'docker-compose exec nginx nginx -s reload';
-      done"
+          certbot renew --webroot -w /var/www/certbot --quiet --deploy-hook 'docker exec sensegrid_nginx nginx -s reload';
+      done
+      "
+
+networks:
+  sensegrid_net:
+    driver: bridge
+# -------------------- END OF DOCKER COMPOSE --------------------
