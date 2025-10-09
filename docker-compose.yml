@@ -29,6 +29,11 @@ services:
     build: .
     container_name: sensegrid_web
     restart: always
+    environment:
+      - DOMAIN=sensegrid.sltdigitallab.lk
+      - CERT_PATH=/etc/letsencrypt/live/sensegrid.sltdigitallab.lk
+      - EMAIL=isurumadhuranga279@gmail.com
+
 
   certbot:
     image: certbot/certbot
