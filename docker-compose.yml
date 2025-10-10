@@ -1,6 +1,14 @@
 version: "3.9"
 
 services:
+  web:
+    build: .
+    container_name: sensegrid_web
+    restart: always
+    # Expose only internally, Nginx handles ports
+    networks:
+      - backend
+
   nginx:
     image: nginx:alpine
     container_name: sensegrid_nginx
@@ -15,16 +23,14 @@ services:
       - ./dist:/usr/share/nginx/html
     depends_on:
       - web
-
-  web:
-    build: .
-    container_name: sensegrid_web
-    restart: always
+    networks:
+      - backend
+      - frontend
 
   certbot:
     image: certbot/certbot
     container_name: sensegrid_certbot
-    restart: always
+    restart: "no"
     volumes:
       - ./certbot-webroot:/var/www/certbot
       - /etc/letsencrypt:/etc/letsencrypt
@@ -35,21 +41,17 @@ services:
       CERT_PATH=/etc/letsencrypt/live/$DOMAIN/fullchain.pem;
 
       if [ ! -f $CERT_PATH ]; then
-          echo '⚡ No certificate found. Requesting a new certificate for' $DOMAIN;
+          echo '⚡ Requesting new certificate for' $DOMAIN;
           certbot certonly --webroot -w /var/www/certbot \
               -d $DOMAIN \
               --agree-tos --non-interactive --email $EMAIL \
               || exit 1;
-          echo '✅ Certificate created successfully.';
+          echo '✅ Certificate created.';
       else
-          echo '🔐 Certificate already exists.';
+          echo '🔐 Certificate exists.';
       fi;
+      "
 
-      echo '♻️ Starting automatic renewal loop...';
-      trap exit TERM;
-      while :; do
-          sleep 12h & wait $${!};
-          echo '🔄 Renewing certificates...';
-          certbot renew --webroot -w /var/www/certbot --quiet \
-            --deploy-hook \"docker exec sensegrid_nginx nginx -s reload\";
-      done"
+networks:
+  frontend:
+  backend:
