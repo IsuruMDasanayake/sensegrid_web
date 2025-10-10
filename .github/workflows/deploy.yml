@@ -23,7 +23,9 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no root@152.42.249.28 "
             cd /opt/sensegrid &&
-            git pull &&
+            git fetch --all &&
+            git reset --hard origin/main &&
             docker-compose down &&
             docker-compose up -d --build
           "
+
