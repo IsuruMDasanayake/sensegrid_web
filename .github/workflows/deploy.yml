@@ -19,11 +19,11 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
-      - name: Deploy to Server 
-        run: | 
-          ssh -o StrictHostKeyChecking=no root@152.42.249.28 " 
-            cd /opt/sensegrid && 
-            git pull && 
-            docker-compose down && 
-            docker-compose up -d --build 
-          " 
+      - name: Deploy and ensure SSL
+        run: |
+          ssh -o StrictHostKeyChecking=no root@152.42.249.28 "
+            cd /opt/sensegrid &&
+            git pull &&
+            docker-compose down &&
+            docker-compose up -d --build
+          "
