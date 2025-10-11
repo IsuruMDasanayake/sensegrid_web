@@ -14,7 +14,10 @@ const Products = () => {
   const specifications = [
     { label: "Operating Temperature", value: "-20°C to +70°C" },
     { label: "Enclosure Rating", value: "IP65 (Dust & Splash Resistant)" },
-    { label: "Power Options", value: "Direct AC (Primary), with backup support" },
+    {
+      label: "Power Options",
+      value: "Direct AC (Primary), with backup support",
+    },
     { label: "Connectivity", value: "GSM, NB-IoT, LoRaWAN" },
     {
       label: "Sensors",
@@ -22,7 +25,10 @@ const Products = () => {
     },
     { label: "Dashboard", value: "Cloud-based, with export & analytics" },
     { label: "Dimensions", value: "Compact, industrial-ready design" },
-    { label: "Customer Support", value: "Provided by SLT-Mobitel Digital Labs" },
+    {
+      label: "Customer Support",
+      value: "Provided by SLT-Mobitel Digital Labs",
+    },
   ];
 
   const benefits = [
@@ -57,7 +63,7 @@ const Products = () => {
       step: 1,
       title: "Install Device",
       description:
-        "Mount the Monitor One unit on machines or in warehouses — simple and quick setup.",
+        "Mount the SenseGrid unit on machines or in warehouses simple and quick setup.",
     },
     {
       step: 2,
@@ -83,29 +89,28 @@ const Products = () => {
     <div className="pt-16">
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-teal-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
-        <div className="max-w-7xl mx-auto px-20 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Text Section */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight">
                 <span className="bg-gradient-to-r from-sky-500 via-cyan-400 to-sky-500 bg-[length:200%_200%] animate-gradient bg-clip-text text-transparent">
                   Machine Condition Monitoring Solution
                 </span>
-                {/* <span className="block text-2xl md:text-3xl text-gray-900 dark:text-white mt-2">
-                  Industrial IoT Monitoring Device
-                </span> */}
               </h1>
 
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-                SenseGrid is flagship IoT solution, designed for
-                machine condition and environment monitoring. It provides
-                real-time insights into equipment health, energy usage, and
-                safety conditions — all through a cloud dashboard.
+              <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-8">
+                SenseGrid is a flagship IoT solution designed for machine
+                condition and environment monitoring. It provides real-time
+                insights into equipment health, energy usage, and safety
+                conditions — all through a cloud dashboard.
               </p>
-              <div className="flex flex-wrap gap-4">
+
+              <div className="flex flex-wrap gap-3 sm:gap-4">
                 <span className="px-4 py-2 bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium">
                   Industrial-Grade
                 </span>
@@ -118,24 +123,91 @@ const Products = () => {
               </div>
             </motion.div>
 
+            {/* Right Image Section */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1 }}
-              className="relative"
+              className="relative flex justify-center lg:justify-end"
             >
-              <div className="relative inline-block w-[580px] max-w-full mx-auto lg:ml-20">
+              <div className="relative w-full max-w-sm sm:max-w-md md:max-w-lg">
                 {/* Gradient Glow Background */}
                 <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-teal-500/20 rounded-2xl blur-xl"></div>
 
                 {/* Image Container */}
-                <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+                <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg">
                   <img
                     src="/assets/images/abstract-1.png"
                     alt="SenseGrid Monitor One Device"
-                    className="mx-auto w-full h-[260px] sm:h-[320px] md:h-[380px] lg:h-[420px] object-contain rounded-xl"
+                    className="mx-auto w-full h-auto object-contain rounded-xl"
                   />
                 </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Warehouse Monitoring Solution */}
+      <section className="py-20 bg-gradient-to-br from-teal-50 via-white to-blue-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Side - Image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+              className="relative order-2 lg:order-1 flex justify-center lg:justify-start"
+            >
+              <div className="relative w-full max-w-sm sm:max-w-md md:max-w-lg">
+                {/* Gradient Glow Background */}
+                <div className="absolute -inset-4 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-2xl blur-xl"></div>
+
+                {/* Image Container */}
+                <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg">
+                  <img
+                    src="/assets/images/abstract-2.png"
+                    alt="SenseGrid Warehouse Monitoring Solution"
+                    className="mx-auto w-full h-auto object-contain rounded-xl"
+                  />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right Side - Text */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="order-1 lg:order-2"
+            >
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                <span className="bg-gradient-to-r from-teal-500 via-sky-400 to-teal-500 bg-[length:200%_200%] animate-gradient bg-clip-text text-transparent">
+                  Warehouse Condition Monitoring Solution
+                </span>
+              </h1>
+
+              <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-8">
+                SenseGrid’s Warehouse Condition Monitoring Solution ensures
+                safe, efficient, and optimal environments across storage and
+                logistics facilities. It provides continuous tracking of
+                temperature, humidity, air quality, and energy usage — helping
+                you protect sensitive goods, reduce costs, and maintain
+                compliance.
+              </p>
+
+              <div className="flex flex-wrap gap-3 sm:gap-4">
+                <span className="px-4 py-2 bg-amber-100 dark:bg-amber-900/20 text-amber-800 dark:text-amber-200 rounded-full text-sm font-medium">
+                  Environmental Sensors
+                </span>
+                <span className="px-4 py-2 bg-sky-100 dark:bg-sky-900/20 text-sky-800 dark:text-sky-200 rounded-full text-sm font-medium">
+                  Real-Time Alerts
+                </span>
+                <span className="px-4 py-2 bg-emerald-100 dark:bg-emerald-900/20 text-emerald-800 dark:text-emerald-200 rounded-full text-sm font-medium">
+                  Cloud Insights
+                </span>
               </div>
             </motion.div>
           </div>

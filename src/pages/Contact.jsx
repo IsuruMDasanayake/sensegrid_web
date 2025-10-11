@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 import { Linkedin, Twitter, Facebook } from "lucide-react";
+import FAQSection from "../components/FAQSection";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -314,6 +315,8 @@ const Contact = () => {
         </div>
       </section>
 
+      <FAQSection />
+                  
       {/* Map Section */}
       <section className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
