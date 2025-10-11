@@ -1,8 +1,10 @@
-name: Deploy to SenseGrid Server
+name: Deploy to Server
 
 on:
   push:
     branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 0' # weekly SSL check
 
 jobs:
   deploy:
@@ -17,15 +19,11 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
-      - name: Deploy and Rebuild Containers
+      - name: Deploy and ensure SSL
         run: |
           ssh -o StrictHostKeyChecking=no root@152.42.249.28 "
-            git config --global --add safe.directory /opt/sensegrid &&
             cd /opt/sensegrid &&
-            echo '🔄 Pulling latest code...' &&
             git pull &&
-            echo '🧱 Rebuilding Docker image...' &&
             docker-compose down &&
-            docker-compose up -d --build &&
-            echo '✅ Deployment complete.'
+            docker-compose up -d --build
           "
