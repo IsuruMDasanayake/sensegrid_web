@@ -5,9 +5,6 @@ services:
     build: .
     container_name: sensegrid_web
     restart: always
-    # Expose only internally, Nginx handles ports
-    networks:
-      - backend
 
   nginx:
     image: nginx:alpine
@@ -16,24 +13,20 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./certbot-webroot:/var/www/certbot
-      - /etc/letsencrypt:/etc/letsencrypt
-      - ./dist:/usr/share/nginx/html
     depends_on:
       - web
-    networks:
-      - backend
-      - frontend
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - ./certbot-webroot:/var/www/certbot
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
 
   certbot:
     image: certbot/certbot
     container_name: sensegrid_certbot
-    restart: "no"
+    restart: always
     volumes:
-      - ./certbot-webroot:/var/www/certbot
       - /etc/letsencrypt:/etc/letsencrypt
+      - ./certbot-webroot:/var/www/certbot
     entrypoint: >
       /bin/sh -c "
       DOMAIN=sensegrid.sltdigitallab.lk;
@@ -41,17 +34,20 @@ services:
       CERT_PATH=/etc/letsencrypt/live/$DOMAIN/fullchain.pem;
 
       if [ ! -f $CERT_PATH ]; then
-          echo '⚡ Requesting new certificate for' $DOMAIN;
-          certbot certonly --webroot -w /var/www/certbot \
-              -d $DOMAIN \
-              --agree-tos --non-interactive --email $EMAIL \
-              || exit 1;
-          echo '✅ Certificate created.';
+        echo '⚡ No certificate found. Requesting new one...';
+        certbot certonly --webroot -w /var/www/certbot \
+          -d $DOMAIN \
+          --agree-tos --non-interactive --email $EMAIL || exit 1;
+        echo '✅ Certificate created successfully.';
       else
-          echo '🔐 Certificate exists.';
+        echo '🔐 Certificate already exists.';
       fi;
-      "
 
-networks:
-  frontend:
-  backend:
+      echo '♻️ Starting auto-renew loop...';
+      trap exit TERM;
+      while :; do
+        sleep 12h & wait $${!};
+        echo '🔄 Renewing certificates...';
+        certbot renew --webroot -w /var/www/certbot --quiet \
+          --deploy-hook \"docker exec sensegrid_nginx nginx -s reload\";
+      done"
