@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   nginx:
-    image: nginx:alpine
+    build: .
     container_name: sensegrid_nginx
     restart: always
     ports:
@@ -12,9 +12,6 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       - ./certbot-webroot:/var/www/certbot
       - /etc/letsencrypt:/etc/letsencrypt
-      - ./dist:/usr/share/nginx/html
-    depends_on:
-      - web
 
   web:
     build: .
