@@ -20,6 +20,7 @@ jobs:
       - name: Deploy and Rebuild Containers
         run: |
           ssh -o StrictHostKeyChecking=no root@152.42.249.28 "
+            git config --global --add safe.directory /opt/sensegrid &&
             cd /opt/sensegrid &&
             echo '🔄 Pulling latest code...' &&
             git pull &&
