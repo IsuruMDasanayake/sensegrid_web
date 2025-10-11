@@ -1,4 +1,4 @@
-name: Deploy to Server
+name: Deploy to SenseGrid Server
 
 on:
   push:
@@ -17,20 +17,14 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
-      - name: Sync Files to Server
-        run: |
-          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" ./ root@152.42.249.28:/opt/sensegrid/
-          
-      - name: Prune old Docker images
-        run: |
-          ssh -o StrictHostKeyChecking=no root@152.42.249.28 "
-            docker image prune -f
-          "
-          
-      - name: Deploy with Docker Compose
+      - name: Deploy and Rebuild Containers
         run: |
           ssh -o StrictHostKeyChecking=no root@152.42.249.28 "
             cd /opt/sensegrid &&
+            echo '🔄 Pulling latest code...' &&
+            git pull &&
+            echo '🧱 Rebuilding Docker image...' &&
             docker-compose down &&
-            docker-compose up -d --build
+            docker-compose up -d --build &&
+            echo '✅ Deployment complete.'
           "
