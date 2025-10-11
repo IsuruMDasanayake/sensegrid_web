@@ -43,7 +43,7 @@ export default function FAQSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            // className="sticky top-24"
+            className="sticky top-24"
           >
             <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">
               Frequently Asked Questions
