@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   schedule:
     - cron: '0 0 * * 0' # weekly SSL check
+  workflow_dispatch:
 
 jobs:
   deploy:
