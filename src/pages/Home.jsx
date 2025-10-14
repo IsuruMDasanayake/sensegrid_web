@@ -76,7 +76,7 @@ const Home = () => {
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
                 <span
-                  className="bg-clip-text text-transparent"
+                  className="bg-clip-text text-transparent text-5xl sm:text-7xl"
                   style={{
                     backgroundImage:
                       "linear-gradient(90deg, rgb(14,165,234), rgb(11,209,209) 51%, rgb(14,165,234))",

@@ -22,7 +22,7 @@ const AwardsBar = () => {
       <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 dark:text-white mb-14">
         Awards & Recognitions
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 place-items-center -mt-10">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-2 place-items-center -mt-10">
         {/* Light mode images */}
         {awardsLight.map((award, i) => (
           <img
