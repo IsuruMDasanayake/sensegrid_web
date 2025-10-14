@@ -138,7 +138,7 @@ const Products = () => {
                 <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg">
                   <img
                     src="/assets/images/abstract-1.png"
-                    alt="SenseGrid Monitor One Device"
+                    alt="SenseGrid Device"
                     className="mx-auto w-full h-auto object-contain rounded-xl"
                   />
                 </div>
@@ -228,7 +228,7 @@ const Products = () => {
               Technical Specifications
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Monitor One is engineered for continuous operation in demanding
+              SenseGrid  is engineered for continuous operation in demanding
               industrial environments, with dependable sensors and secure
               connectivity.
             </p>
@@ -270,7 +270,7 @@ const Products = () => {
               Key Benefits
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              From factory floors to warehouse monitoring, Monitor One helps you
+              From factory floors to warehouse monitoring, SenseGrid helps you
               track conditions, prevent downtime, and make smarter decisions.
             </p>
           </motion.div>

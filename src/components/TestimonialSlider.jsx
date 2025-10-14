@@ -20,7 +20,7 @@ export default function TestimonialSlider() {
       id: 2,
       name: "DHL",
       role: "Logistics Operations",
-      text: "The accuracy and ease of deployment impressed us from day one. We rely on Monitor One across multiple sites.",
+      text: "The accuracy and ease of deployment impressed us from day one. We rely on SenseGrid across multiple sites.",
       image: "/assets/images/dhl.png",
     },
     {
