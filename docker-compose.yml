@@ -17,7 +17,7 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./traefik/traefik.yml:/etc/traefik/traefik.yml:ro"
-      - "./traefik/acme.json:/letsencrypt/acme.json"
+      - "./traefik/certs:/certs:ro"
     networks:
       - webnet
 
@@ -30,7 +30,8 @@ services:
       - "traefik.docker.network=webnet"
       - "traefik.http.routers.sensegrid.rule=Host(`sensegrid.sltdigitallab.lk`)"
       - "traefik.http.routers.sensegrid.entrypoints=websecure"
-      - "traefik.http.routers.sensegrid.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.sensegrid.tls=true"
+      - "traefik.http.routers.sensegrid.tls.certresolver=custom"
       - "traefik.http.services.sensegrid.loadbalancer.server.port=80"
     networks:
       - webnet
