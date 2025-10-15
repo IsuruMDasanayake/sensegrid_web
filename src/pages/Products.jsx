@@ -135,7 +135,7 @@ const Products = () => {
                 <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-teal-500/20 rounded-2xl blur-xl"></div>
 
                 {/* Image Container */}
-                <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg">
+                <div className="relative bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg">
                   <img
                     src="/assets/images/abstract-1.png"
                     alt="SenseGrid Device"
@@ -165,7 +165,7 @@ const Products = () => {
                 <div className="absolute -inset-4 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-2xl blur-xl"></div>
 
                 {/* Image Container */}
-                <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg">
+                <div className="relative bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg">
                   <img
                     src="/assets/images/abstract-2.png"
                     alt="SenseGrid Warehouse Monitoring Solution"
