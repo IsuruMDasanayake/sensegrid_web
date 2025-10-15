@@ -1,5 +1,9 @@
 version: "3.9"
 
+networks:
+  webnet:
+    external: true
+
 services:
   traefik:
     image: traefik:v3.1
@@ -14,14 +18,19 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./traefik/traefik.yml:/etc/traefik/traefik.yml:ro"
       - "./traefik/acme.json:/letsencrypt/acme.json"
+    networks:
+      - webnet
 
-  web:
+  sensegrid_web:
     build: .
     container_name: sensegrid_web
     restart: always
     labels:
       - "traefik.enable=true"
+      - "traefik.docker.network=webnet"
       - "traefik.http.routers.sensegrid.rule=Host(`sensegrid.sltdigitallab.lk`)"
       - "traefik.http.routers.sensegrid.entrypoints=websecure"
       - "traefik.http.routers.sensegrid.tls.certresolver=letsencrypt"
       - "traefik.http.services.sensegrid.loadbalancer.server.port=80"
+    networks:
+      - webnet
