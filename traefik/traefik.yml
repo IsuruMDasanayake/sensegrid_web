@@ -14,7 +14,13 @@ providers:
   docker:
     exposedByDefault: false
 
-tls:
-  certificates:
-    - certFile: /certs/sensegrid.crt
-      keyFile: /certs/sensegrid.key
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: isurumadhuranga279@gmail.com
+      storage: /letsencrypt/acme.json
+      httpChallenge:
+        entryPoint: web
+
+api:
+  dashboard: true
