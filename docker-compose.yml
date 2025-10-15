@@ -1,40 +1,27 @@
 version: "3.9"
 
 services:
-  nginx:
-    build: .
-    container_name: sensegrid_nginx
+  traefik:
+    image: traefik:v3.1
+    container_name: traefik
     restart: always
+    command:
+      - "--configFile=/etc/traefik/traefik.yml"
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./certbot-webroot:/var/www/certbot
-      - /etc/letsencrypt:/etc/letsencrypt
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./traefik/traefik.yml:/etc/traefik/traefik.yml:ro"
+      - "./traefik/acme.json:/letsencrypt/acme.json"
 
   web:
     build: .
     container_name: sensegrid_web
     restart: always
-    # volumes:
-    #   - ./dist:/usr/share/nginx/html
-
-  certbot:
-    image: certbot/certbot
-    container_name: sensegrid_certbot
-    volumes:
-      - ./certbot-webroot:/var/www/certbot
-      - /etc/letsencrypt:/etc/letsencrypt
-    entrypoint: >
-      /bin/sh -c "
-      if [ ! -f /etc/letsencrypt/live/sensegrid.sltdigitallab.lk/fullchain.pem ]; then
-          echo 'No certificate found. Requesting first certificate...';
-          certbot certonly --webroot -w /var/www/certbot -d sensegrid.sltdigitallab.lk --agree-tos --non-interactive --email your-email@example.com;
-      fi;
-      echo 'Starting renewal loop...';
-      trap exit TERM;
-      while :; do
-          sleep 12h & wait $${!};
-          certbot renew --webroot -w /var/www/certbot --quiet --deploy-hook 'docker-compose exec nginx nginx -s reload';
-      done"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sensegrid.rule=Host(`sensegrid.sltdigitallab.lk`)"
+      - "traefik.http.routers.sensegrid.entrypoints=websecure"
+      - "traefik.http.routers.sensegrid.tls.certresolver=letsencrypt"
+      - "traefik.http.services.sensegrid.loadbalancer.server.port=80"
