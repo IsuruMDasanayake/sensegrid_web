@@ -10,26 +10,25 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080" # internal API/debug if needed
+      - "8080:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./traefik/traefik.yml:/etc/traefik/traefik.yml:ro"
       - "./traefik/acme.json:/letsencrypt/acme.json"
     labels:
       - "traefik.enable=true"
-      # Router for dashboard
-      - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.sensegrid.sltdigitallab.lk`)"
-      - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
+
+      # Dashboard route — same domain as your main site
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`sensegrid.sltdigitallab.lk`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
       - "traefik.http.routers.traefik-dashboard.service=api@internal"
+      - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
       - "traefik.http.routers.traefik-dashboard.tls.certresolver=letsencrypt"
 
-      # Optional: add Basic Auth for security
+      # Optional basic auth (recommended)
       - "traefik.http.middlewares.traefik-auth.basicauth.users=admin:$$apr1$$H6uskkkW$$IgXLP6ewTrSuBkTrqE8wj/"
       - "traefik.http.routers.traefik-dashboard.middlewares=traefik-auth"
-
     networks:
       - web
-
 
   sensegrid_web:
     build: .
