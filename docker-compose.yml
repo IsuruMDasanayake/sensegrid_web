@@ -43,7 +43,7 @@ services:
       - "traefik.http.services.sensegrid.loadbalancer.server.port=80"
     networks:
       - web
-      
+
   rybbit_backend:
     image: rybbit/backend:latest
     container_name: rybbit_backend
@@ -53,7 +53,6 @@ services:
       - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
       - DISABLE_SIGNUP=false
     depends_on:
-      - postgres
       - clickhouse
     labels:
       - "traefik.enable=true"
