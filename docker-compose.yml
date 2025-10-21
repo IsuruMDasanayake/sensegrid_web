@@ -45,7 +45,7 @@ services:
       - web
       
   rybbit_backend:
-    image: rybbit/backend:latest
+    image: ghcr.io/rybbit-io/rybbit-backend:latest
     container_name: rybbit_backend
     restart: always
     environment:
@@ -65,7 +65,7 @@ services:
       - web
 
   rybbit_client:
-    image: rybbit/client:latest
+    image: ghcr.io/rybbit-io/rybbit-client:latest
     container_name: rybbit_client
     restart: always
     depends_on:
