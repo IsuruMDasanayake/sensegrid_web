@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  rybbit-backend:
+    image: rybbit/backend:latest
+    container_name: rybbit-backend
+    env_file:
+      - .env
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.rybbit-api.rule=Host(`sensegrid.sltdigitallab.lk`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.rybbit-api.entrypoints=websecure"
+      - "traefik.http.routers.rybbit-api.tls.certresolver=letsencrypt"
+      - "traefik.http.services.rybbit-api.loadbalancer.server.port=3001"
+    networks:
+      - web
+
+  rybbit-client:
+    image: rybbit/client:latest
+    container_name: rybbit-client
+    env_file:
+      - .env
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.rybbit-client.rule=Host(`sensegrid.sltdigitallab.lk`)"
+      - "traefik.http.routers.rybbit-client.entrypoints=websecure"
+      - "traefik.http.routers.rybbit-client.tls.certresolver=letsencrypt"
+      - "traefik.http.services.rybbit-client.loadbalancer.server.port=3002"
+    networks:
+      - web
+
+  clickhouse:
+    image: yandex/clickhouse-server:latest
+    container_name: rybbit-clickhouse
+    restart: always
+    networks:
+      - web
+
+  postgres:
+    image: postgres:15
+    container_name: rybbit-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: rybbit
+      POSTGRES_PASSWORD: rybbit
+      POSTGRES_DB: analytics
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
