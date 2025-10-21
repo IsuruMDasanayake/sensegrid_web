@@ -87,7 +87,7 @@ services:
       - web
 
   postgres:
-    mage: postgres:15
+    image: postgres:15
     container_name: rybbit-postgres
     restart: always
     environment:
