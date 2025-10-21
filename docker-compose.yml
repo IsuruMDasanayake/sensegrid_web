@@ -86,6 +86,17 @@ services:
     networks:
       - web
 
+  postgres:
+    mage: postgres:15
+    container_name: rybbit-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: rybbit
+      POSTGRES_PASSWORD: rybbit
+      POSTGRES_DB: analytics
+    networks:
+      - web
+
 networks:
   web:
     external: true
