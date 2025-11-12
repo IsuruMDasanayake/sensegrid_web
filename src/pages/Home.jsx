@@ -10,8 +10,7 @@ import {
   Wifi,
   Zap,
 } from "lucide-react";
-import CircuitBoard3D from "../components/CircuitBoard3D";
-import AnimatedCounter from "../components/AnimatedCounter";
+
 import TestimonialSlider from "../components/TestimonialSlider";
 import BlogSlider from "../components/BlogSlider";
 import LogoBar from "../components/LogoBar";

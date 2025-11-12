@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 import { Linkedin, Twitter, Facebook } from "lucide-react";
 import FAQSection from "../components/FAQSection";
+import ContactForm from "../components/ContactForm";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -175,7 +176,7 @@ const Contact = () => {
             </motion.div>
 
             {/* Contact Form */}
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -187,7 +188,7 @@ const Contact = () => {
                   Fill Out the Form to Connect Us
                 </h2>
 
-                {/* {isSubmitted ? (
+                {isSubmitted ? (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -300,7 +301,7 @@ const Contact = () => {
                       <span className="relative">Send Message</span>
                     </button>
                   </form>
-                )} */}
+                )}
 
                 <iframe
                   src="https://forms.office.com/pages/responsepage.aspx?id=_FNCU7bfL0a1ysvoGTn17m4kn0KsqvVBqePRPsMGFZRUNE9OWDJUQk5aNzlGWUFZUVkyWUs4V0MwSCQlQCNjPTEu&origin=QRCode&qrcodeorigin=presentation&route=shorturl"
@@ -310,7 +311,9 @@ const Contact = () => {
                   title="SenseGrid QR Form"
                 />
               </div>
-            </motion.div>
+            </motion.div> */}
+
+            <ContactForm />  
           </div>
         </div>
       </section>
