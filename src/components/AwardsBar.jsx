@@ -6,6 +6,7 @@ const awardsLight = [
   "/assets/images/awards/award3_light.png",
   "/assets/images/awards/award4_light.png",
   "/assets/images/awards/award5_light.png",
+  "/assets/images/awards/award6_light.png",
 ];
 
 const awardsDark = [
@@ -14,6 +15,7 @@ const awardsDark = [
   "/assets/images/awards/award3_dark.png",
   "/assets/images/awards/award4_dark.png",
   "/assets/images/awards/award5_dark.png",
+  "/assets/images/awards/award6_dark.png",
 ];
 
 const AwardsBar = () => {
@@ -22,7 +24,7 @@ const AwardsBar = () => {
       <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 dark:text-white mb-14">
         Awards & Recognitions
       </h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 place-items-center -mt-10">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-2 place-items-center -mt-10">
         {/* Light mode images */}
         {awardsLight.map((award, i) => (
           <img
