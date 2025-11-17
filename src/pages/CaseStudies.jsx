@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const Applications = () => {
+const CaseStudies = () => {
   const [activeCase, setActiveCase] = useState(null);
 
   const caseStudies = [
@@ -85,7 +85,7 @@ const Applications = () => {
                bg-gradient-to-r from-sky-500 via-teal-400 to-sky-500 
                bg-clip-text text-transparent"
             >
-              Success Stories
+              Case Studies
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12">
               See how enterprises are using SenseGrid to monitor environments,
@@ -382,4 +382,4 @@ const Applications = () => {
   );
 };
 
-export default Applications;
+export default CaseStudies;

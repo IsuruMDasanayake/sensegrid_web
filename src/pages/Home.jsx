@@ -174,11 +174,9 @@ const Home = () => {
               About SenseGrid
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              SenseGrid is an IoT solution by SLT-Mobitel Digital Lab,
-              providing a complete monitoring system that combines rugged
-              sensors, reliable connectivity, and an intelligent cloud
-              dashboard. Trusted by enterprises like DSI and DHL, we deliver
-              real-time visibility, predictive insights, and measurable impact.
+              Built by SLT-Mobitel, SenseGrid delivers a complete Industrial IoT solution with 
+              rugged sensors, reliable connectivity, and an intuitive cloud dashboard. Gain real-time visibility, anticipate issues before they occur, 
+              and unlock measurable efficiency and sustainability gains across your operations..
             </p>
           </motion.div>
 
