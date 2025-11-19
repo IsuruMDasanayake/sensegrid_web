@@ -51,11 +51,11 @@ services:
     container_name: sensegrid_preview
     restart: always
     ports:
-      - "3001:80"   # Production build runs on port 80 inside container
+      - "3001:80" # map external 3001 → internal Nginx/React server port
     networks:
       - web
+    
 
-          
   rybbit_backend:
     image: ghcr.io/rybbit-io/rybbit-backend:latest
     container_name: rybbit_backend
