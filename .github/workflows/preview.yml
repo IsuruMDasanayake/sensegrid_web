@@ -1,0 +1,39 @@
+name: Deploy Preview
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Deploy Preview Container
+        run: |
+          ssh -o StrictHostKeyChecking=no root@152.42.249.28 "
+            cd /opt/sensegrid &&
+            git checkout main &&
+            git pull origin main &&
+
+            # Stop & remove old preview container if exists
+            docker stop sensegrid_preview || true &&
+            docker rm sensegrid_preview || true &&
+
+            # Rebuild image
+            docker build -f Dockerfile.preview -t sensegrid_preview:latest . &&
+
+            # Run new preview container on 3001
+            docker run -d \
+              --name sensegrid_preview \
+              -p 3001:5173 \
+              sensegrid_preview:latest
+          "
