@@ -51,7 +51,7 @@ services:
     container_name: sensegrid_preview
     restart: always
     ports:
-      - "3001:80" # map external 3001 → internal Nginx/React server port
+      - "3001:80"
     networks:
       - web
     
