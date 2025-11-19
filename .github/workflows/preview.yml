@@ -18,10 +18,13 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
-      - name: Deploy Preview via Docker Compose
+      - name: Deploy Preview
         run: |
           ssh -o StrictHostKeyChecking=no root@152.42.249.28 "
             cd /opt/sensegrid &&
-            git pull &&
+            git checkout main &&
+            git pull origin main &&
+            docker-compose stop sensegrid_preview || true &&
+            docker-compose rm -f sensegrid_preview || true &&
             docker-compose up -d --build sensegrid_preview
           "
