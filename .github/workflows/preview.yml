@@ -30,6 +30,6 @@ jobs:
             docker rm sensegrid_preview || true &&
             docker rmi sensegrid_sensegrid_preview:latest || true &&
             docker volume prune -f &&
-            docker compose up -d --build sensegrid_preview
+            docker-compose up -d --build sensegrid_preview
           "
 
