@@ -55,7 +55,6 @@ services:
     networks:
       - web
     
-
   rybbit_backend:
     image: ghcr.io/rybbit-io/rybbit-backend:latest
     container_name: rybbit_backend
