@@ -8,7 +8,6 @@ on:
 jobs:
   preview:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -18,13 +17,23 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
-      - name: Deploy Preview
+      - name: Deploy Preview Container
         run: |
           ssh -o StrictHostKeyChecking=no root@152.42.249.28 "
             cd /opt/sensegrid &&
             git checkout main &&
             git pull origin main &&
-            docker-compose stop sensegrid_preview || true &&
-            docker-compose rm -f sensegrid_preview || true &&
-            docker-compose up -d --build sensegrid_preview
+
+            # Stop & remove old preview container if exists
+            docker stop sensegrid_preview || true &&
+            docker rm sensegrid_preview || true &&
+
+            # Rebuild image
+            docker build -f Dockerfile.preview -t sensegrid_preview:latest . &&
+
+            # Run new preview container on 3001
+            docker run -d \
+              --name sensegrid_preview \
+              -p 3001:5173 \
+              sensegrid_preview:latest
           "
