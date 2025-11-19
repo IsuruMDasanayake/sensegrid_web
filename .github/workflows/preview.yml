@@ -1,23 +1,24 @@
 name: Deploy Preview
 
 on:
-  workflow_dispatch:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   preview:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
-      - name: Deploy Preview Container
+      - name: Deploy Preview via Docker Compose
         run: |
           ssh -o StrictHostKeyChecking=no root@152.42.249.28 "
             cd /opt/sensegrid &&
