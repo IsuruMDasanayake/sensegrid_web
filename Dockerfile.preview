@@ -1,11 +1,11 @@
-<<<<<<< HEAD
+<<<<<<<<< Temporary merge branch 1
+# Stage: Dev server for preview
+FROM node:18-alpine
+=========
 # Use Node 20.19
 FROM node:20.19-bullseye
 
-=======
-# Stage: Dev server for preview
-FROM node:18-alpine
->>>>>>> 834b8df46810a4350429f72c57ed9e1cfa8e7689
+>>>>>>>>> Temporary merge branch 2
 WORKDIR /app
 
 # Copy package files first
