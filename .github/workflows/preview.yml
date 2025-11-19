@@ -11,7 +11,7 @@ jobs:
       - name: Deploy to Preview Server
         run: |
           ssh -o StrictHostKeyChecking=no root@152.42.249.28 "
-            cd /root/sensegrid_web &&
+            cd /opt/sensegrid &&
             git fetch origin &&
             git reset --hard origin/development &&
             docker compose -f docker-compose.preview.yml down &&
