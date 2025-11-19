@@ -81,7 +81,8 @@ const Home = () => {
                       "linear-gradient(90deg, rgb(14,165,234), rgb(11,209,209) 51%, rgb(14,165,234))",
                   }}
                 >
-                  SENSEGRID
+                  SENSE
+                  
                 </span>
                 <br />
                 {/* <span className="text-3xl md:text-4xl">
