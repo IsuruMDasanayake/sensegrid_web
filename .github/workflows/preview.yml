@@ -1,16 +1,16 @@
 name: Deploy Preview
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
-  workflow_dispatch:
 
 jobs:
   preview:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.5.4
@@ -21,10 +21,6 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no root@152.42.249.28 "
             cd /opt/sensegrid &&
-            git checkout main &&
-            git pull origin main &&
-            docker stop sensegrid_preview || true &&
-            docker rm sensegrid_preview || true &&
-            docker build -t sensegrid/preview:latest . &&
-            docker run -d --name sensegrid_preview -p 3001:5173 sensegrid/preview:latest
+            git pull &&
+            docker-compose up -d --build sensegrid_preview
           "
