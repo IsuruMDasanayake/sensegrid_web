@@ -51,9 +51,10 @@ services:
     container_name: sensegrid_preview
     restart: always
     ports:
-      - "3001:5173" # or map to whatever port your dev server / Vite uses
+      - "3001:80"   # Production build runs on port 80 inside container
     networks:
       - web
+
           
   rybbit_backend:
     image: ghcr.io/rybbit-io/rybbit-backend:latest
