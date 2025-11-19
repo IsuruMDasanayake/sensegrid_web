@@ -1,4 +1,4 @@
-name: Deploy to Server
+name: Deploy to Server (Production Branch)
 
 on:
   push:
