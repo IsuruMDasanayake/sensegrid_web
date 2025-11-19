@@ -1,3 +1,4 @@
+# Stage: Dev server for preview
 FROM node:18-alpine
 WORKDIR /app
 
@@ -5,7 +6,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-
 EXPOSE 5173
+
+# Run Vite dev server on all network interfaces
 CMD ["npm", "run", "dev", "--", "--host"]
-# Note: This Dockerfile is for development preview purposes only.

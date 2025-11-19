@@ -1,1 +1,32 @@
 
+name: Deploy Preview
+
+on:
+  push:
+    branches: [ development ]
+  workflow_dispatch:
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Deploy Preview Container
+        run: |
+          ssh -o StrictHostKeyChecking=no root@152.42.249.28 "
+            cd /opt/sensegrid &&
+            git fetch --all &&
+            git checkout development &&
+            git reset --hard origin/development &&
+            docker stop sensegrid_preview || true &&
+            docker rm sensegrid_preview || true &&
+            docker-compose up -d --build sensegrid_preview
+          "
