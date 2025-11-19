@@ -173,10 +173,18 @@ const Home = () => {
             <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">
               About SenseGrid
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Built by SLT-Mobitel, SenseGrid delivers a complete Industrial IoT solution with 
-              rugged sensors, reliable connectivity, and an intuitive cloud dashboard. Gain real-time visibility, anticipate issues before they occur, 
-              and unlock measurable efficiency and sustainability gains across your operations..
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-6xl mx-auto">
+              SenseGrid is an enterprise-grade IIoT Solutions built to transform industrial operations 
+              through intelligent monitoring and automation. It delivers tailored solutions that integrate 
+              industrial sensors, actuators to capture vital parameters such as machine current, internal 
+              and external temperatures, and warehouse conditions. It provides a full-featured IoT solution 
+              combining embedded intelligence, flexible connectivity, and cloud control from real-time device 
+              management to actionable insights. SenseGrid enables predictive actions when systems move out 
+              of nominal ranges, helping industries cut downtime, keep MTTA minimum, boost MTBF, and reduce 
+              over-temperature or over-current events. Proven deployments in machine condition monitoring 
+              and warehouse temperature control have empowered operators with earlier interventions, 
+              improved safety, and actionable insights. With complete historical data for root cause 
+              analysis and predictive maintenance, SenseGrid sets the foundation for a smarter, more resilient industrial ecosystem.
             </p>
           </motion.div>
 
