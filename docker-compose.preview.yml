@@ -4,10 +4,10 @@ services:
   sensegrid_preview:
     build:
       context: .
-      dockerfile: Dockerfile.preview
+      dockerfile: Dockerfile.preview     # must exist
     container_name: sensegrid_preview
     ports:
-      - "9000:80"     # <-- Preview on port 9000
+      - "9000:80"                        # preview on port 9000
     restart: always
     networks:
       - web
